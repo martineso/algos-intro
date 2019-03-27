@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Does not handle signed integers
 void custom_itoa (int num, char* out, int out_length) {
 
     int pos = out_length - 1;
