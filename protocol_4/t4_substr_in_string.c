@@ -36,4 +36,7 @@ int main () {
     for (int i = 0; i < occurrences; i++) {
         printf("Substring at position %d \n", positions[i]);
     }
+
+    free(positions);
+    return 0;
 }
