@@ -1,15 +1,12 @@
 #include <stdio.h>
 
-int custom_atoi (const char *str) 
-{
+int custom_atoi (const char *str) {
     int result = 0;
     int i = 0;
 
-    while (str[i] != '\0') 
-    {
+    while (str[i] != '\0') {
         
-        if (str[i] == ' ')
-        {
+        if (str[i] == ' ') {
             i++;
             continue;
         }
@@ -21,8 +18,7 @@ int custom_atoi (const char *str)
     return result;
 }
 
-int main () 
-{
+int main () {
     unsigned int i;
     char *s = " 9885";
     i = custom_atoi(s);
