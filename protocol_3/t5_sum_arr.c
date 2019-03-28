@@ -45,7 +45,6 @@ long long int sum_arr (long long int* a, int a_len, long long int* b, int b_len)
     sum = 0;
 
     for (int i = larger_arr_len; i >= 0; i--) {
-        printf("Element at position %d is %d \n", i, sum_arr[i]);
         sum += sum_arr[i] * multiplier;
         multiplier *= 10;
     }
@@ -56,10 +55,10 @@ long long int sum_arr (long long int* a, int a_len, long long int* b, int b_len)
 
 int main () {
 
-    int a_size = 5;
+    int a_size = 3;
     int b_size = 3;
-    long long int a[] = {1, 2, 3, 4, 5};
-    long long int b[] = {1, 2, 3};
+    long long int a[] = {1, 2, 3};
+    long long int b[] = {1, 2, 3, 4, 5};
 
     printf("Sum is %d", sum_arr(a, a_size, b, b_size));
     return 0;
