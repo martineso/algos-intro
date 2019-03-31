@@ -16,10 +16,11 @@ int arr_max (int* arr, int arr_len) {
 
 int main () {
 
-    printf("Enter the size of the array: \n");
     char line[256];
-    int arr_len;
     int* arr = NULL;
+    int arr_len;
+    printf("Enter the size of the array: \n");
+    
     if (fgets(line, sizeof(line), stdin)) {
         if (1 == sscanf(line, "%d", &arr_len)) {
             arr = malloc(arr_len * sizeof(int));
