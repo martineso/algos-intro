@@ -8,21 +8,17 @@ char* ceasar (char* in, int key, int decode) {
     char* out = malloc( (in_len + 1) * sizeof(char) );
     char* encoded = out;
     
-    int sign = 1;
     if (decode) {
-        sign = -1;
+        key = 26 - key;
     }
 
-    int ascii_offset = 97;
+    char ch;
     for (; *in; in++) {
-        if (*in >= 'A' || *in <= 'Z') {
-            ascii_offset = 65;
+        if (*in >= 'A' && *in <= 'Z') {
+            *out++ = (*in - 65 + key) % 26 + 65;
         } else {
-            // Default for lowercase values of [a-z]
-            ascii_offset = 97;
+            *out++ = (*in - 97 + key) % 26 + 97;
         }
-
-        *out++ = (*in - ascii_offset + (sign * key) % 26 + ascii_offset);  
     }
 
     *out = '\0';
@@ -32,11 +28,14 @@ char* ceasar (char* in, int key, int decode) {
 int main () {
 
     char in[] = "Test";
-    int key = 1;
+    int key = 3;
     char* encoded = ceasar(in, key, 0);
     char* decoded = ceasar(encoded, key, 1);
 
     printf("Encoded result for ceasar cypher for %s with key %d is %s\n", in, key, encoded);
     printf("Decoded result for ceasar cypher for %s with key %d is %s\n", encoded, key, decoded);
+
+    free(encoded);
+    free(decoded);
     return 0;
 }
