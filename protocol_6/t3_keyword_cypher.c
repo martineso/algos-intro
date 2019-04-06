@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-char* get_encoder (char* kw, int kw_len) {
-    char* encoder = malloc( 26 * sizeof(char) );
+char* get_encoder (char* kw) {
+    int kw_len = strlen(kw);
+    char* encoder = malloc( 27 * sizeof(char) );
     int alphabet[26] = { 0 };
 
     int encoder_index = 0;
@@ -14,24 +16,28 @@ char* get_encoder (char* kw, int kw_len) {
             }
         } else if (kw[i] >= 'a' &&  kw[i] <= 'z') {
             if (!alphabet[kw[i] - 97]) {
-                encoder[encoder_index++] = (char)kw[i] - (97 - 65);
+                encoder[encoder_index++] = (char)kw[i] - 32;
                 alphabet[kw[i] - 97] = 1;
             }
         }
     }
 
+    // Fill the rest of the encoder array with the remaining characters
+    // of the alphabet, while skipping through the ones that were already
+    // a part of the keyword
     for (int i = 0; i < 26; i++) {
         if (!alphabet[i]) {
             encoder[encoder_index++] = (char) i + 65;
         }
     }
 
-    encoder[encoder_index++] = '\0';
+    encoder[encoder_index] = '\0';
     return encoder;
 }
 
-char* encode_keyword_cypher (char* s, int s_len, char* encoder) {
-    char* cyphered = malloc( s_len * sizeof(char) );
+char* encode_keyword_cypher (char* s, char* encoder) {
+    int s_len = strlen(s);
+    char* cyphered = malloc( s_len + 1 * sizeof(char) );
     char* out = cyphered;
     for (; *s; s++) {
         if (*s >= 'A' && *s <= 'Z') {
@@ -47,23 +53,55 @@ char* encode_keyword_cypher (char* s, int s_len, char* encoder) {
     return out;
 }
 
-char* keyword_cypher (char* s, int s_len, char* keyword, int keyword_len) {
-    char* encoder = get_encoder(keyword, keyword_len);
-    char* cyphered = encode_keyword_cypher(s, s_len, encoder);
+char* decode_keyword_cypher (char* s, char* encoder) {
+    int s_len = strlen(s);
+    char* decyphered = malloc( s_len + 1 * sizeof(char) );
+    char* out = decyphered;
+    char* alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    // Pointer the to the the first char
+    char* ch;
+    int pos;
+
+    for (; *s; s++) {
+        if (*s >= 'A' && *s <= 'Z') {
+            ch = strchr(encoder, *s);
+            pos = (int)(ch - encoder);
+            *decyphered++ = alphabet[pos];
+        } else if (*s >= 'a' &&  *s <= 'z') {
+            ch = strchr(encoder, *s - 32);
+            pos = (int)(ch - encoder);
+            *decyphered++ = alphabet[pos];
+        } else {
+            *decyphered++ = *s;
+        }
+    }
+
+    *decyphered = '\0';
+    return out;
+}
+
+char* keyword_cypher (char* s, char* keyword, int decode) {
+    char* encoder = get_encoder(keyword);
+    printf("Encoder %s\n", encoder);
+    char* cyphered;
+    if (decode) {
+        cyphered = decode_keyword_cypher(s, encoder);
+    } else {
+        cyphered = encode_keyword_cypher(s, encoder);
+    }
+
     free(encoder);
     return cyphered;
 }
 
 int main () {
-
     char* keyword = "secret";
-    int keyword_len = 6;
     char* s = "This is a test message";
-    int s_len = 22;
-    char* cyphered = keyword_cypher(s, s_len, keyword, keyword_len);
+    char* cyphered = keyword_cypher(s, keyword, 0);
 
     printf("Cyphered string '%s' with keyword %s is %s\n", s, keyword, cyphered);
 
+    printf("Decoded: %s", keyword_cypher(cyphered, keyword, 1));
     free(cyphered);
     return 0;
 }
