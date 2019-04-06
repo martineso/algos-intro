@@ -35,28 +35,28 @@ char* get_encoder (char* kw) {
     return encoder;
 }
 
-char* encode_keyword_cypher (char* s, char* encoder) {
+char* encode_keyword_cipher (char* s, char* encoder) {
     int s_len = strlen(s);
-    char* cyphered = malloc( s_len + 1 * sizeof(char) );
-    char* out = cyphered;
+    char* ciphered = malloc( (s_len + 1) * sizeof(char) );
+    char* out = ciphered;
     for (; *s; s++) {
         if (*s >= 'A' && *s <= 'Z') {
-            *cyphered++ = encoder[*s - 65]; 
+            *ciphered++ = encoder[*s - 65]; 
         } else if (*s >= 'a' &&  *s <= 'z') {
-            *cyphered++ = encoder[*s - 97];
+            *ciphered++ = encoder[*s - 97];
         } else {
-            *cyphered++ = *s;
+            *ciphered++ = *s;
         }
     }
 
-    *cyphered = '\0';
+    *ciphered = '\0';
     return out;
 }
 
-char* decode_keyword_cypher (char* s, char* encoder) {
+char* decode_keyword_cipher (char* s, char* encoder) {
     int s_len = strlen(s);
-    char* decyphered = malloc( s_len + 1 * sizeof(char) );
-    char* out = decyphered;
+    char* deciphered = malloc( (s_len + 1) * sizeof(char) );
+    char* out = deciphered;
     char* alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     // Pointer the to the the first char
     char* ch;
@@ -66,42 +66,42 @@ char* decode_keyword_cypher (char* s, char* encoder) {
         if (*s >= 'A' && *s <= 'Z') {
             ch = strchr(encoder, *s);
             pos = (int)(ch - encoder);
-            *decyphered++ = alphabet[pos];
+            *deciphered++ = alphabet[pos];
         } else if (*s >= 'a' &&  *s <= 'z') {
             ch = strchr(encoder, *s - 32);
             pos = (int)(ch - encoder);
-            *decyphered++ = alphabet[pos];
+            *deciphered++ = alphabet[pos];
         } else {
-            *decyphered++ = *s;
+            *deciphered++ = *s;
         }
     }
 
-    *decyphered = '\0';
+    *deciphered = '\0';
     return out;
 }
 
-char* keyword_cypher (char* s, char* keyword, int decode) {
+char* keyword_cipher (char* s, char* keyword, int decode) {
     char* encoder = get_encoder(keyword);
     printf("Encoder %s\n", encoder);
-    char* cyphered;
+    char* ciphered;
     if (decode) {
-        cyphered = decode_keyword_cypher(s, encoder);
+        ciphered = decode_keyword_cipher(s, encoder);
     } else {
-        cyphered = encode_keyword_cypher(s, encoder);
+        ciphered = encode_keyword_cipher(s, encoder);
     }
 
     free(encoder);
-    return cyphered;
+    return ciphered;
 }
 
 int main () {
     char* keyword = "secret";
     char* s = "This is a test message";
-    char* cyphered = keyword_cypher(s, keyword, 0);
+    char* ciphered = keyword_cipher(s, keyword, 0);
 
-    printf("Cyphered string '%s' with keyword %s is %s\n", s, keyword, cyphered);
+    printf("ciphered string '%s' with keyword %s is %s\n", s, keyword, ciphered);
 
-    printf("Decoded: %s", keyword_cypher(cyphered, keyword, 1));
-    free(cyphered);
+    printf("Decoded: %s", keyword_cipher(ciphered, keyword, 1));
+    free(ciphered);
     return 0;
 }

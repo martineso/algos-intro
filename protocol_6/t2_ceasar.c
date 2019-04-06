@@ -32,8 +32,8 @@ int main () {
     char* encoded = ceasar(in, key, 0);
     char* decoded = ceasar(encoded, key, 1);
 
-    printf("Encoded result for ceasar cypher for %s with key %d is %s\n", in, key, encoded);
-    printf("Decoded result for ceasar cypher for %s with key %d is %s\n", encoded, key, decoded);
+    printf("Encoded result for ceasar cipher for %s with key %d is %s\n", in, key, encoded);
+    printf("Decoded result for ceasar cipher for %s with key %d is %s\n", encoded, key, decoded);
 
     free(encoded);
     free(decoded);
