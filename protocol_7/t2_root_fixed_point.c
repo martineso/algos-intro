@@ -21,7 +21,7 @@ double g2(double x)
 // Fixed point iteration algorithm
 // Link - https://mat.iitm.ac.in/home/sryedida/public_html/caimna/transcendental/iteration%20methods/fixed-point/iteration.html
 
-double root(double (*f)(double), double (*g)(double), double x0, int n, double tol)
+double root(double (*g)(double), double x0, int n, double tol)
 {
   int step = 0;
   double current, x1;
