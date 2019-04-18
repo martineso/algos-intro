@@ -41,7 +41,7 @@ int main()
 {
   const double e = 0.000001;
 
-  printf("Root fixed point iteration - %f\n", root(f, g2, 2.0, 10, e));
+  printf("Root fixed point iteration - %f\n", root(g2, 2.0, 10, e));
   printf("test");
   return 0;
 }
