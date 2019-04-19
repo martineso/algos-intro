@@ -29,8 +29,6 @@ void selection_sort_improved(int *arr, int arr_len)
       }
     }
 
-    printf("Min index: %d\tMax index %d\tMin %d\tMax %d\n", min, max, arr[min], arr[max]);
-    printf("i %d\tk %d\n", i, k);
     // Swap elements
     swap(arr, min, i);
 
@@ -40,9 +38,6 @@ void selection_sort_improved(int *arr, int arr_len)
     else {
       swap(arr, k, max);
     }
-
-    printf("Arr afer iteration %d is ", i);
-    print_arr(arr, arr_len);
   }
 }
 
