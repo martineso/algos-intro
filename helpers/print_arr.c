@@ -6,7 +6,7 @@ void print_arr (int* arr, int arr_len) {
     for (int i = 0; i < arr_len; i++) {
         if (i == arr_len - 1) {
             printf("%d", arr[i]);
-            printf(" ]");
+            printf(" ]\n");
         } else {
             printf("%d, ", arr[i]);
         }
