@@ -28,7 +28,7 @@ double root_bisection(double (*f)(double), double a, double b, int n, double tol
     if (f(c) == 0.00 || ((b - a) / 2 < tol))
     {
       root = c;
-      break;
+      return root;
     }
     step++;
 
@@ -41,8 +41,9 @@ double root_bisection(double (*f)(double), double a, double b, int n, double tol
       b = c;
     }
   }
-
-  return root;
+  
+  printf("Root not found, max iterations exceeded!\n");
+  return 0.0;
 }
 
 int main()
