@@ -32,10 +32,12 @@ void selection_sort_improved(int *arr, int arr_len)
     // Swap elements
     swap(arr, min, i);
 
-    if (arr[min] == max_val) {
+    if (arr[min] == max_val)
+    {
       swap(arr, k, min);
     }
-    else {
+    else
+    {
       swap(arr, k, max);
     }
   }
@@ -53,6 +55,5 @@ int main()
 
   printf("Sorted arr: ");
   print_arr(arr, arr_len);
-  return 0;
   return 0;
 }
